@@ -18,8 +18,6 @@ Each question should:
    - Progress from basic concepts to more advanced topics
    - Assess both theoretical knowledge and practical application
 
-
-
 3. Ensure a logical flow in the question order:
    - Start with 1-2 questions covering fundamental domain knowledge to ease candidates into the interview
    - Gradually increase the complexity and specificity of questions
