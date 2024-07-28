@@ -1,2 +1,2 @@
 # interviewPrep
-helps you efficiently prepare for your next interview
+helps you prepare for your next interview with the help of AI!
