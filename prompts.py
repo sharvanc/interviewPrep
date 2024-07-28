@@ -25,9 +25,12 @@ Each question should:
 
 4. Format your output as a JSON object with a single key "questions" containing an array of {n_questions} question strings.
 
-## Job Description:
+## Job Description (enclosed in triple backticks):
 
+```
 {job_desc}
+
+```
 
 ## Output Format:
 
