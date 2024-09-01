@@ -40,12 +40,14 @@ def get_response_from_llm(prompt:str,
 
 
 
-def get_questions(job_desc:str, 
-                       n_questions: int, 
-                       api_key:str, 
-                       temperature:float=0,
-                       model_name:str="llama-3.1-70b-versatile", 
-                       max_tokens:int=1536):
+def get_questions(
+        job_desc:str, 
+        n_questions: int, 
+        api_key:str, 
+        temperature:float=0,
+        model_name:str="llama-3.1-70b-versatile", 
+        max_tokens:int=1536
+        )-> list:
     """
     Generates a list of questions based on a given job description.ss
 
@@ -75,10 +77,10 @@ def get_questions(job_desc:str,
     )
     # processing the response
     processed_response = response.replace('```json', '').replace('```', '').replace('"', '"""')
-    # converitng to dictionary
-    questions_dict = ast.literal_eval(processed_response)
-    # returning the questions list
-    if 'questions' in questions_dict:
-        return questions_dict['questions']
-    else:
-        return None
+    try:
+        # converitng to dictionary
+        questions_dict = ast.literal_eval(processed_response)
+        # returning the questions list
+        return (True, questions_dict['questions'])
+    except Exception as e:
+        return (False, e)
