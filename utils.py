@@ -45,7 +45,7 @@ def get_questions(
         n_questions: int, 
         api_key:str, 
         temperature:float=0,
-        model_name:str="llama-3.1-70b-versatile", 
+        model_name:str="llama-3.3-70b-versatile", 
         max_tokens:int=1536
         )-> list:
     """
