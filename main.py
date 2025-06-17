@@ -55,10 +55,33 @@ if 'questions' in st.session_state:
                     )
 
 # Display all answers
-if st.button("Show all answers"):
-    for q_no, subquestions in st.session_state.questions.items():
-        st.write(f"Question {q_no}:")
-        for sub_q_no, question in subquestions.items():
-            st.write(f"  {sub_q_no}. {question}")
-            st.write(f"  Answer: {st.session_state.answers[q_no][sub_q_no]}")
-        st.write("---")
+# if st.button("Show all answers"):
+#     for q_no, subquestions in st.session_state.questions.items():
+#         st.write(f"Question {q_no}:")
+#         for sub_q_no, question in subquestions.items():
+#             st.write(f"  {sub_q_no}. {question}")
+#             st.write(f"  Answer: {st.session_state.answers[q_no][sub_q_no]}")
+#         st.write("---")
+
+# Evaluate answers
+if st.button("Evaluate"):
+    if 'groq_api_key' not in st.session_state:
+        st.error('Please enter your Groq API key first!')
+    elif 'questions' not in st.session_state or 'answers' not in st.session_state:
+        st.error('Please generate questions and provide answers first!')
+    else:
+        with st.spinner('Evaluating your answers...'):
+            status, result = utils.evaluate_answers(
+                questions=st.session_state['questions'],
+                answers=st.session_state['answers'],
+                api_key=st.session_state['groq_api_key']
+            )
+            if status:
+                st.success('Evaluation complete!')
+                for q_no, assessment in result.items():
+                    st.markdown(f"**Question {q_no}:**")
+                    st.markdown(f"Score: {assessment['score']}")
+                    st.markdown(f"Justification: {assessment['justification']}")
+                    st.write('---')
+            else:
+                st.error(f"Evaluation failed: {result}")
