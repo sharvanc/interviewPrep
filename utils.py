@@ -84,3 +84,45 @@ def get_questions(
         return (True, questions_dict['questions'])
     except Exception as e:
         return (False, e)
+
+def evaluate_answers(
+    questions: dict,
+    answers: dict,
+    api_key: str,
+    temperature: float = 0,
+    model_name: str = "llama-3.3-70b-versatile",
+    max_tokens: int = 1024
+) -> tuple:
+    """
+    Evaluates candidate answers to interview questions using the LLM and returns the assessment.
+
+    Args:
+        questions (dict): The dictionary of questions (main and sub-questions).
+        answers (dict): The dictionary of candidate answers corresponding to each question.
+        api_key (str): The API key for accessing the language model.
+        temperature (float, optional): The temperature parameter for controlling randomness. Defaults to 0.
+        model_name (str, optional): The name of the language model to use. Defaults to "llama-3.3-70b-versatile".
+        max_tokens (int, optional): The maximum number of tokens to generate in the response. Defaults to 1024.
+
+    Returns:
+        tuple: (True, assessment_dict) if successful, (False, Exception) otherwise.
+    """
+    # Format the context as required by the prompt
+    context = {
+        "questions": questions,
+        "answers": answers
+    }
+    prompt = prompts.ASSESS_ANSWERS_PROMPT.format(context=context)
+    response = get_response_from_llm(
+        prompt=prompt,
+        api_key=api_key,
+        model=model_name,
+        temperature=temperature,
+        max_tokens=max_tokens
+    )
+    processed_response = response.replace('```json', '').replace('```', '').replace('"', '"""')
+    try:
+        assessment_dict = ast.literal_eval(processed_response)
+        return (True, assessment_dict["assessment"])
+    except Exception as e:
+        return (False, e)
