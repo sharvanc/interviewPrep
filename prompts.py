@@ -48,7 +48,9 @@ Remember to craft questions that not only assess the candidate's knowledge but a
 in real-world scenarios relevant to the position. Make sure your output is a JSON object with a single key "questions" \
 containing an array of {n_questions} question strings and no other text whatsoever. Go!'''
 
-ASSESS_ANSWERS_PROMPT = '''You are an expert interview evaluator AI, tasked with rigorously assessing candidate answers to a set of multi-part interview questions. Your evaluation should be fair, detailed, and based strictly on the quality, depth, and relevance of each answer in relation to the question asked.
+ASSESS_ANSWERS_PROMPT = '''You are an expert interview evaluator AI, tasked with rigorously assessing candidate answers \
+to a set of multi-part interview questions. Your evaluation should be fair, detailed, and based strictly on the quality, \
+depth, and relevance of each answer in relation to the question asked.
 
 ## Instructions:
 
@@ -63,11 +65,13 @@ ASSESS_ANSWERS_PROMPT = '''You are an expert interview evaluator AI, tasked with
    - **Clarity:** Is the answer clearly explained and well-structured?
    - **Application:** Where appropriate, does the answer show the ability to apply knowledge to real-world or job-relevant scenarios?
 
-3. Assign a score from 1 to 10 for each question (1 = very poor, 10 = outstanding), considering all sub-questions and the overall quality of the response. Be objective and critical in your assessment.
+3. Assign a score from 1 to 10 for each question (1 = very poor, 10 = outstanding), considering all sub-questions and the overall quality \
+of the response. Be objective and critical in your assessment.
 
 4. For each question, provide a brief justification (1-2 sentences) explaining the score, highlighting strengths and areas for improvement.
 
-5. Format your output as a JSON object with a single key "assessment" containing a dictionary. Each key is the question number, and the value is a dictionary with keys "score" (integer 1-10) and "justification" (string).
+5. Format your output as a JSON object with a single key "assessment" containing a dictionary. Each key is the question number, and the value \
+is a dictionary with keys "score" (integer 1-10) and "justification" (string).
 
 ## Context (enclosed in triple backticks):
 
@@ -78,14 +82,14 @@ ASSESS_ANSWERS_PROMPT = '''You are an expert interview evaluator AI, tasked with
 ## Output Format:
 
 ```json
-{
-  "assessment": {
-    1: {"score": 8, "justification": "Accurate and detailed answer, but lacked real-world example."},
-    2: {"score": 6, "justification": "Basic understanding shown, but missed key technical details."},
+{{
+  "assessment": {{
+    1: {{"score": 8, "justification": "Accurate and detailed answer, but lacked real-world example."}},
+    2: {{"score": 6, "justification": "Basic understanding shown, but missed key technical details."}},
     ...
-    n: {"score": 10, "justification": "Outstanding answer with excellent depth and application."}
-  }
-}
+    n: {{"score": 10, "justification": "Outstanding answer with excellent depth and application."}}
+  }}
+}}
 ```
 
 Be thorough, unbiased, and ensure your output is a JSON object with a single key "assessment" as specified above. Do not include any other text. Go!'''
